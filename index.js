@@ -1,34 +1,73 @@
-let miProducto;
-
-class Producto {
-	constructor(nombre, precio, cantidad, compra, descuento, pagar){
-	  this.nombre = nombre;
-	  this.precio = precio;
-	  this.cantidad = cantidad;
-	  this.compra = compra;
-	  this.descuento = descuento;
-	  this.pagar = pagar;
-	}
-
-	compra = this.precio * this.cantidad;
-	descuento = this.precio * 0.15;
-	pagar = this.compra - this.descuento;
-
+function mostrarMenu() {
+	const OPCION = prompt(
+		"Bienvenido, seleccione una opción (presiona q para salir)\n1. Descuenta 20% \n2. Descuenta 50%");
+	
+	return OPCION;
 }
 
+function operaciones(num_descuento) {
+	compraTotal = precio * cantidad;
+	descuentoCuenta = (compraTotal * num_descuento) / 100;
+	pagarTotal = compraTotal - descuentoCuenta;
+}
 
-  function mostrarMensaje() {
-	const OPCION = prompt("Bienvenido, ingrese los datos solicitados para efectuar su compra:");
-  }
-
-  function compraDeProducto() {
+function procesarDescuento(porcentaje) {
 	let nombre = prompt("Ingrese nombre del producto");
 	let precio = parseFloat(prompt("Ingrese precio del producto"));
 	let cantidad = parseInt(prompt("Ingresa cantidad de productos"));
-	let compra = parseInt(prompt("El total de su compra es de: "));
-	let pagar = parseInt(prompt("Son "+ compra + " pesos."));
 
-	const objetoProducto = new Producto(nombre, precio, cantidad, compra, descuento, pagar);
-	return objetoProducto;
-  }
+	compraTotal = precio * cantidad;
+	descuentoCuenta = (compraTotal * porcentaje) / 100;
+	pagarTotal = compraTotal - descuentoCuenta;
 
+	alert("El total de su compra de " + nombre + " es de " + compraTotal + " pesos ");
+	alert("Lo que te vamos a descontar son " + descuentoCuenta + " pesos");
+	alert("El total a pagar es de " + pagarTotal + " pesos");
+}
+
+function procesarDatosIngresados() {
+	let opcionSeleccionada = mostrarMenu();
+	while (opcionSeleccionada?.toLowerCase() != "q") {
+		if (opcionSeleccionada != "") {
+			opcionSeleccionada = parseInt(opcionSeleccionada);
+			if (!isNaN(opcionSeleccionada)) {
+				switch (opcionSeleccionada) {
+					case 1:
+						console.log("entro a la opcion 1");
+
+						let num_descuento = 20;
+						procesarDescuento(num_descuento);
+
+						alert("¡Gracias por su compra!");
+
+						break;
+
+					case 2:
+						console.log("entro a la opcion 2");
+
+						let num_descuento_2 = 50;
+						procesarDescuento(num_descuento_2);
+
+						alert("¡Gracias por su compra!");
+
+						break;
+
+					default:
+						alert("Opcion Incorrecta");
+						break;
+				}
+			} else {
+				alert("Ingresó una letra");
+			}
+		} else {
+			alert("Seleccione la opción");
+		}
+		opcionSeleccionada = mostrarMenu();
+	}
+}
+
+function main() {
+	procesarDatosIngresados();
+}
+
+main();
